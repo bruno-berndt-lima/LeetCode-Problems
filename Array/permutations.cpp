@@ -18,14 +18,18 @@ public:
 class Solution_2 {
 public:
     void permutations(vector<int>& nums, int i, int n, vector<vector<int>>& all_permutations) {
+        // Base case
         if(i == n) {
             all_permutations.push_back(nums);
             return;
         }
 
         for(int j = i; j < n; j++) {
+            // Generate all permutations
            swap(nums[i], nums[j]);
            permutations(nums, i + 1, n, all_permutations);
+            
+            // Backtracking
            swap(nums[i], nums[j]); 
         }
     }
