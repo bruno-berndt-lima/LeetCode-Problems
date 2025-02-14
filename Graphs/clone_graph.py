@@ -16,13 +16,12 @@ class Solution:
         clones = {node.val: Node(node.val, [])}
         while queue:
             curr_node = queue.popleft()
-            curr_clone = clones[curr_node.val]
 
             for neighbour in curr_node.neighbors:
                 if neighbour.val not in clones:
                     clones[neighbour.val] = Node(neighbour.val, [])
                     queue.append(neighbour)
 
-                curr_clone.neighbors.append(clones[neighbour.val])
+                clones[curr_node.val].neighbors.append(clones[neighbour.val])
         
         return clones[node.val]
