@@ -2,18 +2,19 @@ class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         words_set = set(wordDict)
 
-        def helper(start):
-            valid_substr = []
+        def backtrack(i):
+            if i == len(s):
+                result.append(" ".join(curr))
 
-            if start == len(s):
-                valid_substr.append("")
-            
-            for end in range(start + 1, len(s) + 1):
-                prefix = s[start:end]
-                if prefix in words_set:
-                    suffixes = helper(end)
-                    for suffix in suffixes:
-                        valid_substr.append(prefix + ("" if suffix == "" else " ") + suffix)
-            return valid_substr
-
-        return helper(0)
+            for j in range(i, len(s)):
+                word = s[i:j + 1]
+                if word in words_set:
+                    curr.append(word)
+                    backtrack(j + 1)
+                    curr.pop()
+        
+        curr = []
+        result = []
+        backtrack(0)
+        
+        return result
